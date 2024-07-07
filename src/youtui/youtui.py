@@ -1,7 +1,10 @@
+from textual import work
 from textual.app import App, ComposeResult, on
-from textual.widgets import Button, Header, Footer, Static
+from textual.widgets import Button, Header, Footer
+from yt_dlp.downloader.websocket import asyncio
 
 from youtui.widgets.yt_input import YT_Input
+from youtui.downloader.downloader import ydl
 
 class YoutuiApp(App):
     BINDINGS = [
@@ -15,5 +18,9 @@ class YoutuiApp(App):
         yield Footer()
 
     @on(Button.Pressed)
-    def on_button_pressed(self, event: Button.Pressed) -> None:
-        self.dark = not self.dark
+    @work()
+    async def on_button_pressed(self) -> None:
+        asyncio.create_task(self.download_video())
+
+    async def download_video(self) -> None:
+        await asyncio.to_thread(ydl.download,self.query_one(YT_Input).value, callback)

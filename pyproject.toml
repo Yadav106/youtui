@@ -24,7 +24,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = ["textual==0.71.0"]
+dependencies = ["textual==0.71.0", "yt-dlp==2024.7.2"]
 
 [project.urls]
 Documentation = "https://github.com/Yadav106/youtui#readme"
