@@ -4,12 +4,14 @@ from textual.widgets import Button, Header, Footer
 from yt_dlp.downloader.websocket import asyncio
 
 from youtui.widgets.yt_input import YT_Input
-from youtui.downloader.downloader import ydl
+from youtui.downloader.downloader import DownloaderWidget
+
 
 class YoutuiApp(App):
     BINDINGS = [
         ("q", "quit", "Quit"),
     ]
+
     def compose(self) -> ComposeResult:
         self.title = "YouTUI"
         yield Header()
@@ -23,4 +25,7 @@ class YoutuiApp(App):
         asyncio.create_task(self.download_video())
 
     async def download_video(self) -> None:
-        await asyncio.to_thread(ydl.download,self.query_one(YT_Input).value, callback)
+        newDownloader = DownloaderWidget()
+        self.mount(newDownloader)
+        await asyncio.to_thread(newDownloader.generate_ydl().download,self.query_one(YT_Input).value)
+        self.exit()
