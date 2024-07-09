@@ -1,0 +1,9 @@
+Inputs : 
+Video URL
+Download Directory
+
+Select:
+Only Audio
+
+Dropdown:
+Select Quality

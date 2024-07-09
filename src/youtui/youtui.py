@@ -28,4 +28,3 @@ class YoutuiApp(App):
         newDownloader = DownloaderWidget()
         self.mount(newDownloader)
         await asyncio.to_thread(newDownloader.generate_ydl().download,self.query_one(YT_Input).value)
-        self.exit()
